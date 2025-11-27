@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Ard Jump</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Top Left Section -->
+        <div class="top-left">
+            <button class="btn btn-topup">Цэнэглэх</button>
+            <button class="btn btn-skin-pull">
+                <span class="icon">🎁</span>
+                <span>Skin Pull</span>
+            </button>
+        </div>
+
+        <!-- Top Right Section -->
+        <div class="top-right">
+            <div class="coin-display">
+                <span class="coin-icon">🪙</span>
+                <span class="coin-amount">1,250</span>
+            </div>
+            <button class="btn btn-inventory">
+                <span class="icon">🎒</span>
+                <span>Inventory</span>
+            </button>
+        </div>
+
+        <!-- Center Character -->
+        <div class="character-display">
+            <div class="character-circle">
+                <div class="character-placeholder">
+                    <span class="character-icon">🎮</span>
+                </div>
+            </div>
+            <div class="character-name">Player</div>
+        </div>
+
+        <!-- Bottom Right Section -->
+        <div class="bottom-right">
+            <button class="btn btn-start">Эхлэх</button>
+        </div>
+
+        <!-- Background decoration -->
+        <div class="bg-pattern"></div>
+
+        <!-- Game Mode Selection Modal -->
+        <div class="modal hidden" id="gameModeModal">
+            <div class="modal-content">
+                <h2>Select Game Mode</h2>
+                <div class="mode-buttons">
+                    <button class="btn btn-mode btn-single" id="singlePlayerBtn">
+                        <span class="mode-icon">👤</span>
+                        <span>Single Player</span>
+                    </button>
+                    <button class="btn btn-mode btn-multi" id="multiPlayerBtn">
+                        <span class="mode-icon">👥</span>
+                        <span>Multiplayer</span>
+                    </button>
+                </div>
+                <button class="btn btn-small btn-back" id="backFromModeBtn">Back</button>
+            </div>
+        </div>
+
+        <!-- Inventory Modal -->
+        <div class="modal hidden" id="inventoryModal">
+            <div class="modal-content inventory-modal">
+                <h2>Your Skins</h2>
+                <div class="carousel-container">
+                    <button class="carousel-btn carousel-prev" id="carouselPrev">‹</button>
+                    <div class="carousel" id="carousel">
+                        <div class="skin-item active" data-skin="default" data-icon="🎮">
+                            <div class="skin-preview">🎮</div>
+                            <div class="skin-name">Default</div>
+                            <div class="skin-status">Equipped</div>
+                        </div>
+                        <div class="skin-item" data-skin="ninja" data-icon="🥷">
+                            <div class="skin-preview">🥷</div>
+                            <div class="skin-name">Ninja</div>
+                            <div class="skin-status">Owned</div>
+                        </div>
+                        <div class="skin-item" data-skin="robot" data-icon="🤖">
+                            <div class="skin-preview">🤖</div>
+                            <div class="skin-name">Robot</div>
+                            <div class="skin-status">Owned</div>
+                        </div>
+                        <div class="skin-item" data-skin="alien" data-icon="👽">
+                            <div class="skin-preview">👽</div>
+                            <div class="skin-name">Alien</div>
+                            <div class="skin-status">Owned</div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-next" id="carouselNext">›</button>
+                </div>
+                <button class="btn btn-primary" id="selectSkinBtn">Select Skin</button>
+                <button class="btn btn-small btn-back" id="backFromInventoryBtn">Back</button>
+            </div>
+        </div>
+
+        <!-- Skin Pull Modal -->
+        <div class="modal hidden" id="skinPullModal">
+            <div class="modal-content pull-modal">
+                <h2>Skin Chest</h2>
+                <div class="chest-info">
+                    <div class="chest-cost">
+                        <span class="coin-icon">🪙</span>
+                        <span>100 coins per pull</span>
+                    </div>
+                </div>
+                <div class="chest-container">
+                    <div class="chest" id="chest">
+                        <div class="chest-box">📦</div>
+                    </div>
+                    <div class="chest-reward hidden" id="chestReward">
+                        <div class="reward-glow"></div>
+                        <div class="reward-item" id="rewardItem">🎮</div>
+                        <div class="reward-name" id="rewardName">New Skin!</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-open-chest" id="openChestBtn">Open Chest</button>
+                <button class="btn btn-small btn-back" id="backFromPullBtn">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

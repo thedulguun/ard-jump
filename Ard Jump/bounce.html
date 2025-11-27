@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Zone Master - Precision Timing Game</title>
+    <link rel="stylesheet" href="/static/bounce.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="balance-display">
+                <span class="coin-icon">🪙</span>
+                <span class="balance" id="balance">1000</span>
+            </div>
+            <div class="game-title">ZONE MASTER</div>
+            <div class="menu-btn" id="menuBtn">☰</div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Zone Track -->
+            <div class="zone-track">
+                <div class="zone zone-1x" style="width: 25%">
+                    <span class="zone-label">1.2x</span>
+                </div>
+                <div class="zone zone-2x" style="width: 20%">
+                    <span class="zone-label">2x</span>
+                </div>
+                <div class="zone zone-5x" style="width: 15%">
+                    <span class="zone-label">5x</span>
+                </div>
+                <div class="zone zone-10x" style="width: 10%">
+                    <span class="zone-label">10x</span>
+                </div>
+                <div class="zone zone-20x" style="width: 5%">
+                    <span class="zone-label">20x</span>
+                </div>
+                <div class="zone zone-10x" style="width: 10%">
+                    <span class="zone-label">10x</span>
+                </div>
+                <div class="zone zone-5x" style="width: 15%">
+                    <span class="zone-label">5x</span>
+                </div>
+
+                <!-- Ball -->
+                <div class="ball" id="ball"></div>
+            </div>
+
+            <!-- Current Multiplier Display -->
+            <div class="current-multiplier" id="currentMultiplier">
+                <div class="multiplier-value">1.0x</div>
+            </div>
+
+            <!-- Streak Display -->
+            <div class="streak-display" id="streakDisplay">
+                <div class="streak-label">STREAK</div>
+                <div class="streak-value" id="streakValue">0</div>
+                <div class="streak-bonus" id="streakBonus">+0%</div>
+            </div>
+
+            <!-- Winnings Display -->
+            <div class="winnings-display" id="winningsDisplay">
+                <div class="winnings-label">CURRENT WINNINGS</div>
+                <div class="winnings-value" id="winningsValue">0</div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="bet-controls" id="betControls">
+                <div class="bet-label">BET AMOUNT</div>
+                <div class="bet-input-group">
+                    <button class="bet-btn" id="bet10">10</button>
+                    <button class="bet-btn" id="bet50">50</button>
+                    <button class="bet-btn" id="bet100">100</button>
+                    <button class="bet-btn" id="bet500">500</button>
+                    <input type="number" class="bet-input" id="betInput" value="50" min="10" max="10000">
+                </div>
+            </div>
+
+            <button class="action-btn start-btn" id="startBtn">
+                <span class="btn-text">START GAME</span>
+            </button>
+
+            <div class="game-buttons hidden" id="gameButtons">
+                <button class="action-btn tap-btn" id="tapBtn">
+                    <span class="btn-text">TAP TO STOP!</span>
+                    <span class="btn-hint">Stop ball in highest zone</span>
+                </button>
+                <button class="action-btn cashout-btn" id="cashoutBtn">
+                    <span class="btn-text">CASH OUT</span>
+                    <span class="btn-value" id="cashoutValue">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-label">Total Wins</div>
+                <div class="stat-value" id="totalWins">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Best Streak</div>
+                <div class="stat-value" id="bestStreak">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Biggest Win</div>
+                <div class="stat-value" id="biggestWin">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Win Rate</div>
+                <div class="stat-value" id="winRate">0%</div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="notifications" id="notifications"></div>
+
+        <!-- Particle Container -->
+        <canvas id="particleCanvas"></canvas>
+
+        <!-- Menu Modal -->
+        <div class="modal hidden" id="menuModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Menu</h2>
+                    <button class="close-btn" id="closeMenu">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="menu-item" id="howToPlay">
+                        <span class="menu-icon">ℹ️</span>
+                        <span>How to Play</span>
+                    </div>
+                    <div class="menu-item" id="leaderboard">
+                        <span class="menu-icon">🏆</span>
+                        <span>Leaderboard</span>
+                    </div>
+                    <div class="menu-item" id="backToMenu">
+                        <span class="menu-icon">🏠</span>
+                        <span>Back to Main Menu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Play Modal -->
+        <div class="modal hidden" id="howToPlayModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>How to Play</h2>
+                    <button class="close-btn" id="closeHowToPlay">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="instructions">
+                        <p><strong>🎯 Objective:</strong> Stop the ball in the highest multiplier zone!</p>
+                        <p><strong>🎮 Gameplay:</strong></p>
+                        <ul>
+                            <li>Set your bet amount</li>
+                            <li>Click START GAME</li>
+                            <li>Watch the ball bounce left and right</li>
+                            <li>Click TAP TO STOP when ball is in good zone</li>
+                            <li>Build streaks for bonus multipliers!</li>
+                            <li>Cash out anytime to secure winnings</li>
+                        </ul>
+                        <p><strong>💰 Multipliers:</strong></p>
+                        <ul>
+                            <li>🟢 1.2x - Easy (Largest zone)</li>
+                            <li>🔵 2x - Good</li>
+                            <li>🟣 5x - Great</li>
+                            <li>🟠 10x - Excellent</li>
+                            <li>🔴 20x - JACKPOT! (Smallest zone)</li>
+                        </ul>
+                        <p><strong>🔥 Streak Bonus:</strong> Each consecutive win adds +10% to your multiplier!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Modal -->
+        <div class="modal hidden" id="resultModal">
+            <div class="modal-content result-modal">
+                <div class="result-icon" id="resultIcon">🎉</div>
+                <div class="result-title" id="resultTitle">NICE HIT!</div>
+                <div class="result-amount" id="resultAmount">+100</div>
+                <div class="result-multiplier" id="resultMultiplier">5x</div>
+                <button class="action-btn continue-btn" id="continueBtn">
+                    <span class="btn-text">CONTINUE</span>
+                </button>
+                <button class="action-btn cashout-result-btn" id="cashoutResultBtn">
+                    <span class="btn-text">CASH OUT</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/bounce.js"></script>
+</body>
+</html>
